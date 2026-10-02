@@ -1,15 +1,16 @@
-
-OBJECTS = f.o g.o 
+OBJECTS = fact.o fact_iter.o fact_recurs.o
 
 fact: $(OBJECTS)
-	gcc -g -o fact $(OBJECTS)
+	gcc -g -o fact $(OBJECTS) -pthread
 
+fact.o: fact.c fact.h
+	gcc -c -g -Wall fact.c
 
-f.o : f.c
-	gcc -c -g -ansi -Wall f.c
+fact_iter.o: fact_iter.c fact.h
+	gcc -c -g -Wall fact_iter.c
 
-g.o : g.c
-	gcc -c -g -ansi -Wall g.c
+fact_recurs.o: fact_recurs.c fact.h
+	gcc -c -g -Wall fact_recurs.c
 
 clean:
-	rm *.o fact
+	rm -f *.o fact

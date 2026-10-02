@@ -2,7 +2,7 @@
  * fact_iter.c -- computacao de factoriais de forma iterativa
  */
 #include <stdio.h>	/* importa definicao de printf() */
-#include <thread.h>    /* importa definições das primitivas de pthreads */
+#include <pthread.h>    /* importa definiï¿½ï¿½es das primitivas de pthreads */
 #include "fact.h"
 
 /*
@@ -18,8 +18,8 @@ void * fact_iterativo (void * n)
     for (i = valor; i > 0; i = i - 1) {
 			factorial = factorial * i;
     }
-    printf("tarefa %.2i: factorial(%.2i)=%i\n",
-           thr_self(), valor, factorial);
+    printf("tarefa %lu: factorial(%.2i)=%i\n",
+       (unsigned long) pthread_self(), valor, factorial);
     return NULL;
 }
 

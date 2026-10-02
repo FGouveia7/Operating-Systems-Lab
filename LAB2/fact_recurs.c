@@ -2,10 +2,9 @@
  * fact_recurs.c -- computacao de factoriais de forma recursiva 
  */
 
-#include <stdio.h>	/* importa definicao de printf() */
-#include <thread.h>    /* importa definições das primitivas de threads */
+#include <stdio.h>
+#include <pthread.h>
 #include "fact.h"
-
 /*
  * fact_recursivo: calcula, de forma recursiva, o factorial de um 
  * numero passado como argumento e retorna o resultado
@@ -16,27 +15,24 @@
  *  caso contrario, factorial(n) = n * factorial(n -1)
  *
  */
+int calcula_fact(int valor)
+{
+	if(valor <= 1){
+    return 1;
+  }
+  else{
+    return valor * calcula_fact(valor - 1);
+  }	
+}
 
-
-void * fact_recursivo (void * n)
+void *fact_recursivo(void *n)
 {
     int valor = *((int *) n);
-		int factorial;
+    int factorial = calcula_fact(valor);
 
-    factorial = calcula_fact(valor);
-
-    printf("tarefa %.2i: factorial(%.2i)=%i\n",
-           thr_self(), valor, factorial);
+    printf("tarefa %lu: factorial(%.2i)=%i\n",
+       (unsigned long) pthread_self(), valor, factorial);
     return NULL;
 }
 
 
-
-int calcula_fact(int valor)
-{
-	int factorial;
-
-	/* escreva aqui o codigo do corpo da funcao; */
-	
-	return factorial;
-}
